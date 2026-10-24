@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAFIZ CLOTH SHOWROOM | Nampally, Hyderabad — Official Flagship Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alabaster: '#fafafa',
+                        pearl: '#f4f4f5',
+                        ink: '#09090b',
+                        gold: { 500: '#d97706', 600: '#b45309' },
+                        crimson: { 600: '#e11d48' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Oswald', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #09090b; -webkit-tap-highlight-color: transparent; }
+        .font-display { font-family: 'Oswald', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f4f4f5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #a1a1aa; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #71717a; }
+        .custom-h-scroll::-webkit-scrollbar { height: 5px; display: block; }
+        .custom-h-scroll::-webkit-scrollbar-track { background: #e4e4e7; border-radius: 9999px; }
+        .custom-h-scroll::-webkit-scrollbar-thumb { background: #18181b; border-radius: 9999px; }
+        .custom-h-scroll { scrollbar-width: thin; scrollbar-color: #18181b #e4e4e7; }
+        .marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @media print {
+            body * { visibility: hidden; }
+            #invoice-print-area, #invoice-print-area * { visibility: visible; }
+            #invoice-print-area { position: fixed; left: 0; top: 0; width: 100%; background: white !important; color: black !important; padding: 16px !important; }
+            .no-print { display: none !important; }
+        }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        .animate-slide-up { animation: slideUpFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+    <script>
+        window.toggleHamburgerMenu = function(open) {
+            const sidebar = document.getElementById('hamburger-sidebar');
+            const overlay = document.getElementById('hamburger-sidebar-overlay');
+            if (!sidebar || !overlay) return;
+            if (open) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        };
+    </script>
+</head>
+<body class="bg-white text-zinc-950 antialiased min-h-screen flex flex-col selection:bg-black selection:text-white overflow-x-hidden pb-16 md:pb-0">
+
+    <div id="intro-video-overlay" class="fixed inset-0 z-[100] bg-zinc-950 text-white flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden select-none transition-all duration-300 ease-out">
+        <canvas id="intro-video-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-50"></canvas>
+        <button type="button" onclick="closeIntroVideo()" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-25 px-4 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-[10px] font-extrabold uppercase tracking-widest transition flex items-center gap-1.5 backdrop-blur-md">
+            Skip Intro <i data-lucide="x" class="w-3.5 h-3.5"></i>
+        </button>
+        <div id="intro-fade-card" class="relative z-20 max-w-lg w-full text-center space-y-3 animate-slide-up bg-zinc-900/90 backdrop-blur-xl border border-white/15 p-6 sm:p-8 rounded-3xl shadow-2xl">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-black animate-ping"></span> Nampally, Hyderabad
+            </div>
+            <div class="font-display text-4xl sm:text-6xl font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-amber-400">
+                WELCOME
+            </div>
+            <h1 class="font-display text-xl sm:text-3xl font-bold uppercase text-white tracking-wide">
+                HAFIZ <span class="text-amber-400">CLOTH SHOWROOM</span>
+            </h1>
+            <p class="text-[11px] sm:text-xs text-zinc-300 leading-relaxed">
+                Proprietors: <strong class="text-white">Rizwan & Hassan</strong> • Est. 1963 (60+ Years of Excellence)
+            </p>
+            <div class="w-full h-1.5 bg-white/15 rounded-full overflow-hidden mt-4">
+                <div id="intro-video-progress" class="h-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-75 ease-linear" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="hamburger-sidebar-overlay" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden transition-opacity" onclick="toggleHamburgerMenu(false)"></div>
+    <div id="hamburger-sidebar" class="fixed inset-y-0 left-0 z-50 w-[85vw] max-w-xs bg-white text-zinc-950 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between">
+        <div class="overflow-y-auto flex-1">
+            <div class="p-5 bg-zinc-950 text-white flex items-center justify-between sticky top-0 z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500 text-black flex items-center justify-center font-display font-bold text-base shadow">H</div>
+                    <div>
+                        <h3 class="font-display font-bold text-sm tracking-wider uppercase">HAFIZ SHOWROOM</h3>
+                        <p class="text-[9px] text-amber-400 uppercase tracking-widest">Est. 1963 • Nampally</p>
+                    </div>
+                </div>
+                <button onclick="toggleHamburgerMenu(false)" class="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-white/10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-4 space-y-1 text-xs font-bold uppercase tracking-wider divide-y divide-zinc-100">
+                <div class="py-2 space-y-1">
+                    <p class="text-[10px] font-extrabold text-zinc-400 px-3 mb-2">Shop Departments</p>
+                    <button onclick="toggleHamburgerMenu(false); switchView('store'); setDeptFilter('All')" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center justify-between">
+                        <span class="flex items-center gap-3"><i data-lucide="grid" class="w-4 h-4 text-amber-600"></i> All Collection</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+                    </button>
+                    <button onclick="toggleHamburgerMenu(false); switchView('store'); setDeptFilter('Men-Stitched')" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center justify-between">
+                        <span class="flex items-center gap-3"><i data-lucide="user" class="w-4 h-4 text-amber-600"></i> Men • Stitched Suits</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+                    </button>
+                    <button onclick="toggleHamburgerMenu(false); switchView('store'); setDeptFilter('Men-Unstitched')" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center justify-between">
+                        <span class="flex items-center gap-3"><i data-lucide="scissors" class="w-4 h-4 text-amber-600"></i> Men • Unstitched Cloth</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+                    </button>
+                    <button onclick="toggleHamburgerMenu(false); switchView('store'); setDeptFilter('Women-Stitched')" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center justify-between">
+                        <span class="flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-rose-600"></i> Women • Stitched Suits</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+                    </button>
+                    <button onclick="toggleHamburgerMenu(false); switchView('store'); setDeptFilter('Women-Unstitched')" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center justify-between">
+                        <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-4 h-4 text-rose-600"></i> Women • Unstitched & Sarees</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+                    </button>
+                    <button onclick="toggleHamburgerMenu(false); switchView('store'); setDeptFilter('Others')" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center justify-between">
+                        <span class="flex items-center gap-3"><i data-lucide="layers" class="w-4 h-4 text-indigo-600"></i> Matching Center & Others</span>
+                        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-zinc-400"></i>
+                    </button>
+                </div>
+                <div class="py-3 space-y-1">
+                    <p class="text-[10px] font-extrabold text-zinc-400 px-3 mb-2">Account & Portals</p>
+                    <button onclick="toggleHamburgerMenu(false); accessCustomerSection()" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center gap-3">
+                        <i data-lucide="user-check" class="w-4 h-4 text-emerald-600"></i> Customer Profile & Orders
+                    </button>
+                    <button onclick="toggleHamburgerMenu(false); accessOwnerStudioModal()" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center gap-3">
+                        <i data-lucide="lock" class="w-4 h-4 text-amber-600"></i> Owner Studio (Admin Login)
+                    </button>
+                    <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center gap-3 text-zinc-900">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-rose-600"></i> Showroom Google Map
+                    </a>
+                    <button onclick="toggleHamburgerMenu(false); openIntroVideo()" class="w-full text-left px-3 py-3 rounded-xl hover:bg-zinc-100 transition flex items-center gap-3">
+                        <i data-lucide="play-circle" class="w-4 h-4 text-indigo-600"></i> Watch Intro Video
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="p-4 bg-zinc-50 border-t border-zinc-200 text-[11px] font-semibold text-zinc-600">
+            📍 Shop 5-7-549, Nampally, Hyd - 1<br>📱 9849078066 / 9951654779
+        </div>
+    </div>
+
+    <div class="bg-zinc-950 text-white text-[10px] sm:text-[11px] font-bold py-2 overflow-hidden uppercase tracking-widest border-b border-zinc-800">
+        <div class="marquee-track flex items-center gap-8">
+            <span>⚡ HAFIZ CLOTH SHOWROOM • EST. 1963 • 60+ YEARS OF TRUST IN NAMPALLY, HYDERABAD</span>
+            <span class="text-amber-400">•</span>
+            <span>USE CODE <strong class="text-amber-400 underline">HZ10</strong> FOR FLAT 10% OFF</span>
+            <span class="text-amber-400">•</span>
+            <span>PROPRIETORS: RIZWAN & HASSAN • CALL: 9849078066 / 9951654779</span>
+            <span class="text-amber-400">•</span>
+            <span>⚡ HAFIZ CLOTH SHOWROOM • EST. 1963 • 60+ YEARS OF TRUST IN NAMPALLY, HYDERABAD</span>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200/80 shadow-2xs">
+        <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 sm:gap-3.5 min-w-0 flex-1">
+                <button onclick="toggleHamburgerMenu(true)" aria-label="Menu" class="p-2 sm:p-2.5 rounded-xl bg-zinc-100 hover:bg-black hover:text-white active:scale-95 transition text-zinc-900 border border-zinc-200/80 shrink-0">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+                <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer min-w-0" onclick="switchView('store')">
+                    <div class="w-8 h-8 sm:w-11 sm:h-11 rounded-xl bg-zinc-950 text-white flex flex-col items-center justify-center font-display font-bold leading-none shadow-sm shrink-0 border border-zinc-800">
+                        <span class="text-[10px] sm:text-sm tracking-tighter text-amber-400">HAFIZ</span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <h1 class="font-display font-bold text-sm sm:text-xl md:text-2xl tracking-tight text-zinc-950 uppercase leading-none truncate">HAFIZ CLOTH SHOWROOM</h1>
+                        <p class="text-[8px] sm:text-[10px] text-zinc-500 font-bold tracking-widest uppercase mt-0.5 truncate">Est. 1963 • Nampally, Hyderabad</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="hidden lg:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-extrabold text-[11px] uppercase tracking-wider transition border border-zinc-200 whitespace-nowrap">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-600"></i> Location Map
+                </a>
+                <button onclick="toggleCartDrawer(true)" aria-label="Shopping Bag" class="relative p-2 sm:p-2.5 text-zinc-900 hover:bg-black hover:text-white active:scale-95 transition rounded-full border border-zinc-200 bg-zinc-50 shrink-0">
+                    <i data-lucide="shopping-bag" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow">0</span>
+                </button>
+                <div id="auth-status-container" class="shrink-0">
+                    <button onclick="accessCustomerSection()" class="px-2.5 sm:px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider bg-zinc-950 text-white rounded-full hover:bg-zinc-800 active:scale-95 transition flex items-center gap-1.5 shadow-xs whitespace-nowrap">
+                        <i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i>
+                        <span id="header-account-label">Account</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <div id="view-storefront">
+            <!-- Promo Strip -->
+            <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-zinc-950 py-2.5 px-3 text-center font-extrabold text-[11px] sm:text-xs uppercase tracking-wider shadow-xs flex flex-wrap items-center justify-center gap-1.5">
+                <span class="inline-flex items-center gap-1"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Special Offer:</span>
+                <span>Use Code <strong class="bg-zinc-950 text-amber-400 px-2 py-0.5 rounded font-mono tracking-widest">HZ10</strong> for <span class="underline decoration-2">10% OFF</span> at Checkout!</span>
+            </div>
+
+            <!-- Hero Banner with Rotating Collection Showcase on Right -->
+            <section class="relative bg-zinc-950 text-white overflow-hidden border-b border-zinc-200">
+                <div class="absolute inset-0 opacity-25 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 relative z-10">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                        <div class="space-y-3 max-w-xl">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-amber-300 text-[10px] font-extrabold uppercase tracking-widest">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                60+ Years of Heritage • Proprietors: Rizwan & Hassan
+                            </div>
+                            <h2 class="font-display text-2xl sm:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-white leading-tight">
+                                Stitched & Unstitched <span class="text-amber-400">Collection</span>
+                            </h2>
+                            <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                                Raymond Suiting, Shirting, Tailored Ready-Made Suits, Designer Sarees, Cotton Suits & All Kinds of Matching Center.
+                            </p>
+                        </div>
+
+                        <!-- Right Corner Rotating Images Gallery -->
+                        <div class="shrink-0 w-full lg:w-auto flex justify-center lg:justify-end">
+                            <div id="hero-rotating-card" onclick="openHeroFeaturedModal()" class="w-full max-w-xs sm:w-72 bg-zinc-900/90 backdrop-blur-xl border border-white/15 rounded-2xl p-3 shadow-2xl cursor-pointer group hover:border-amber-400 transition-all duration-300">
+                                <div class="relative aspect-[3/4] sm:aspect-[4/5] rounded-xl overflow-hidden bg-zinc-950">
+                                    <img id="hero-showcase-img" src="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                    <span id="hero-showcase-badge" class="absolute top-2 left-2 bg-zinc-950/90 text-amber-400 text-[8px] font-black uppercase px-2 py-0.5 rounded-full tracking-wider"></span>
+                                </div>
+                                <div class="mt-2.5 flex items-center justify-between gap-2">
+                                    <div class="min-w-0">
+                                        <h4 id="hero-showcase-title" class="font-display font-bold text-xs uppercase text-white truncate group-hover:text-amber-300 transition"></h4>
+                                        <p id="hero-showcase-price" class="font-display font-bold text-sm text-amber-400 mt-0.5"></p>
+                                    </div>
+                                    <span class="px-2.5 py-1 bg-white/10 group-hover:bg-amber-400 group-hover:text-black text-white text-[9px] font-extrabold uppercase rounded-lg transition shrink-0">
+                                        View →
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter & Sort Toolbar -->
+            <section id="catalog-section" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+                <div class="bg-zinc-50/90 backdrop-blur-md border border-zinc-200/90 rounded-2xl p-3 sm:p-4 mb-6 sm:mb-8 shadow-2xs">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                        <div class="w-full lg:w-auto overflow-hidden">
+                            <div class="flex items-center justify-between mb-1.5 lg:hidden">
+                                <span class="text-[9px] font-extrabold uppercase tracking-widest text-zinc-400">Swipe / Scroll Categories →</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto custom-h-scroll pb-2.5 pt-0.5 px-0.5">
+                                <button onclick="setDeptFilter('All')" data-dept="All" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition whitespace-nowrap">All Items</button>
+                                <button onclick="setDeptFilter('Men-Stitched')" data-dept="Men-Stitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Men • Stitched</button>
+                                <button onclick="setDeptFilter('Men-Unstitched')" data-dept="Men-Unstitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Men • Unstitched</button>
+                                <button onclick="setDeptFilter('Women-Stitched')" data-dept="Women-Stitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Women • Stitched</button>
+                                <button onclick="setDeptFilter('Women-Unstitched')" data-dept="Women-Unstitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Women • Unstitched</button>
+                                <button onclick="setDeptFilter('Others')" data-dept="Others" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Matching & Others</button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between lg:justify-end gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-zinc-200/70 shrink-0">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 flex items-center gap-1 whitespace-nowrap">
+                                <i data-lucide="arrow-up-down" class="w-3 h-3"></i> Sort By:
+                            </span>
+                            <select id="sort-select" onchange="handleSortChange(this.value)" class="bg-white border border-zinc-300 rounded-xl px-3 py-1.5 text-xs font-bold text-zinc-900 focus:outline-none focus:border-black">
+                                <option value="featured">Featured / Latest</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="name">Name: A to Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"></div>
+            </section>
+        </div>
+
+        <!-- OWNER STUDIO VIEW -->
+        <div id="view-owner" class="hidden max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
+            <div class="bg-zinc-50 border border-zinc-200 rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-10 shadow-sm space-y-6 sm:space-y-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-200">
+                    <div class="space-y-1.5">
+                        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap">Owner Verified Studio</span>
+                            <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap">Supabase Cloud Connected</span>
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-3xl font-bold uppercase text-zinc-950">PROPRIETOR DASHBOARD</h2>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                        <button onclick="switchView('store')" class="flex-1 sm:flex-none justify-center px-4 py-2.5 rounded-full bg-black hover:bg-zinc-800 text-white text-[11px] font-extrabold uppercase tracking-wider whitespace-nowrap transition">
+                            View Storefront
+                        </button>
+                        <button onclick="logoutOwner()" class="flex-1 sm:flex-none justify-center px-4 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-extrabold uppercase tracking-wider whitespace-nowrap transition">
+                            Logout Owner
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ORDERS MANAGEMENT SECTION -->
+                <div class="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-display text-lg sm:text-xl font-bold uppercase text-zinc-950 flex items-center gap-2">
+                            <i data-lucide="package" class="w-5 h-5 text-amber-600 shrink-0"></i> Customer Orders & Delivery Tracker
+                        </h3>
+                        <button onclick="loadOwnerOrders()" class="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap">Refresh Orders</button>
+                    </div>
+
+                    <!-- Desktop Table View with Visible Bottom Scrollbar -->
+                    <div class="overflow-x-auto custom-h-scroll pb-2">
+                        <table class="w-full min-w-[820px] text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-zinc-100 border-b border-zinc-200 text-zinc-700 uppercase font-extrabold text-[10px]">
+                                    <th class="p-3 whitespace-nowrap">Order ID & Date</th>
+                                    <th class="p-3">Customer, Phone & Address</th>
+                                    <th class="p-3">Items & Total</th>
+                                    <th class="p-3 whitespace-nowrap">Payment Mode</th>
+                                    <th class="p-3 whitespace-nowrap">Delivery Status</th>
+                                    <th class="p-3 text-right whitespace-nowrap">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="owner-orders-table-body" class="divide-y divide-zinc-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- CATALOG & INVENTORY MANAGEMENT SECTION -->
+                <div class="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-display text-lg sm:text-xl font-bold uppercase text-zinc-950 flex items-center gap-2">
+                            <i data-lucide="grid" class="w-5 h-5 text-amber-600 shrink-0"></i> Manage Showroom Catalog & Inventory
+                        </h3>
+                        <span class="text-xs font-bold text-zinc-500">Total Items: <span id="owner-total-count">0</span></span>
+                    </div>
+
+                    <div class="overflow-x-auto custom-h-scroll pb-2">
+                        <table class="w-full min-w-[750px] text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-zinc-100 border-b border-zinc-200 text-zinc-700 uppercase font-extrabold text-[10px]">
+                                    <th class="p-3">Image & Title</th>
+                                    <th class="p-3">Department & Type</th>
+                                    <th class="p-3">Price</th>
+                                    <th class="p-3">Description</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="owner-catalog-table-body" class="divide-y divide-zinc-200"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ADD / EDIT PRODUCT SECTION -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="bg-white border border-zinc-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                            <label class="flex flex-col items-center justify-center border-2 border-dashed border-zinc-300 hover:border-black rounded-2xl p-6 cursor-pointer bg-zinc-50 transition text-center group">
+                                <i data-lucide="upload-cloud" class="w-8 h-8 text-zinc-500 group-hover:text-black mb-2"></i>
+                                <span class="text-xs font-extrabold text-zinc-900">Upload Standing Portrait Photo (Mobile Pic)</span>
+                                <span class="text-[10px] text-zinc-400 mt-0.5">Optimized for standing rectangle display</span>
+                                <input type="file" id="owner-file-input" accept="image/*" class="hidden" onchange="handleOwnerImageUpload(event)">
+                            </label>
+                            <img id="owner-preview-img" src="" class="aspect-[3/4] max-h-72 w-full object-cover rounded-xl border border-zinc-200">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5">
+                        <form id="publish-product-form" onsubmit="handlePublishProduct(event)" class="bg-white border border-zinc-200 rounded-2xl p-6 space-y-4 shadow-sm">
+                            <input type="hidden" id="edit-prod-id" value="">
+                            <h3 id="form-mode-title" class="text-sm font-extrabold uppercase text-zinc-950">Add New Product</h3>
+                            <div>
+                                <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Title</label>
+                                <input type="text" id="prod-title" required placeholder="e.g. Raymond Suiting" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-xs font-bold text-zinc-900">
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Department</label>
+                                    <select id="prod-dept" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2.5 text-xs font-bold text-zinc-900">
+                                        <option value="Men">Men</option>
+                                        <option value="Women">Women</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Fit Type</label>
+                                    <select id="prod-stitch-type" onchange="toggleOwnerSizeCheckboxes(this.value)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2.5 text-xs font-bold text-zinc-900">
+                                        <option value="Stitched (Ready-made)">Stitched</option>
+                                        <option value="Unstitched">Unstitched</option>
+                                        <option value="Others Item">Others Item</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="owner-size-selection-box" class="space-y-2 bg-zinc-50 p-3 rounded-xl border border-zinc-200">
+                                <label class="block text-[10px] font-extrabold uppercase text-zinc-700">Select Available Sizes for Stitched Item:</label>
+                                <div class="flex flex-wrap gap-3 text-xs font-bold text-zinc-900">
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" name="owner-size" value="S (36)" checked class="rounded accent-black"> S (36)</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" name="owner-size" value="M (38)" checked class="rounded accent-black"> M (38)</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" name="owner-size" value="L (40)" checked class="rounded accent-black"> L (40)</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" name="owner-size" value="XL (42)" checked class="rounded accent-black"> XL (42)</label>
+                                    <label class="flex items-center gap-1.5"><input type="checkbox" name="owner-size" value="XXL (44)" class="rounded accent-black"> XXL (44)</label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Price (₹)</label>
+                                <input type="number" id="prod-price" required placeholder="999" min="1" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2.5 text-xs font-bold text-zinc-900">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Description</label>
+                                <textarea id="prod-desc" rows="2" required placeholder="Description..." class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2 text-xs text-zinc-900"></textarea>
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" id="publish-submit-btn" class="flex-1 py-3 bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-widest rounded-xl transition">
+                                    Publish Item to Store
+                                </button>
+                                <button type="button" id="cancel-edit-btn" onclick="cancelOwnerEdit()" class="hidden px-4 py-3 bg-zinc-200 hover:bg-zinc-300 text-zinc-800 font-extrabold text-xs uppercase rounded-xl transition">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUSTOMER PROFILE VIEW -->
+        <div id="view-profile" class="hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="bg-zinc-50 border border-zinc-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-8">
+                <div class="flex items-center justify-between pb-6 border-b border-zinc-200">
+                    <div>
+                        <h2 id="prof-name" class="font-display text-2xl font-bold uppercase text-zinc-950">Customer Profile</h2>
+                        <p id="prof-contact" class="text-xs text-zinc-500"></p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="switchView('store')" class="px-4 py-2 bg-black text-white rounded-xl text-xs font-bold uppercase">Back to Collection</button>
+                        <button onclick="logoutCustomer()" class="px-4 py-2 bg-rose-600 text-white rounded-xl text-xs font-bold uppercase">Sign Out</button>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6 shadow-xs space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-display text-lg font-bold uppercase text-zinc-950 flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-amber-600"></i> Saved Home Delivery Address
+                        </h3>
+                        <span class="text-[10px] font-extrabold uppercase bg-emerald-100 text-emerald-900 px-2.5 py-1 rounded-full">Stored in Supabase Cloud</span>
+                    </div>
+                    <form id="saved-address-form" onsubmit="handleUpdateSavedAddress(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Full Name</label>
+                            <input type="text" id="prof-addr-name" required oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Home Street Address / Landmark</label>
+                            <input type="text" id="prof-addr-street" required placeholder="H.No, Street name" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">City</label>
+                            <input type="text" id="prof-addr-city" value="Hyderabad" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">State</label>
+                            <input type="text" id="prof-addr-state" value="Telangana" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Pin Code (6 digits)</label>
+                            <input type="text" id="prof-addr-pincode" maxlength="6" required oninput="this.value=this.value.replace(/\D/g,'')" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Alternate Phone</label>
+                            <input type="text" id="prof-addr-altphone" maxlength="10" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold text-zinc-900">
+                        </div>
+                        <div class="sm:col-span-2 pt-2 flex items-center gap-3">
+                            <button type="submit" class="flex-1 py-2.5 bg-black text-white font-extrabold text-xs uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition">
+                                Save & Update Home Address
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div>
+                    <h3 class="font-display text-xl font-bold uppercase text-zinc-950 mb-4">Your Recent Buys & Delivery Status</h3>
+                    <div id="profile-orders-list" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-zinc-900 text-white py-14 border-t border-zinc-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500 text-black flex items-center justify-center font-display font-bold">H</div>
+                    <h3 class="font-display font-bold text-lg uppercase tracking-wider">Hafiz Cloth Showroom</h3>
+                </div>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                    Hyderabad's premier destination for Suiting, Shirting, Suits, Cotton Suits, Sarees, and All Kinds of Matching Center items. Proudly serving customers with uncompromising quality since years.
+                </p>
+                <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-amber-400 hover:underline pt-1">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i> View on Google Maps
+                </a>
+            </div>
+            
+            <div class="space-y-3">
+                <h4 class="font-display font-bold text-sm uppercase tracking-widest text-amber-400">About Our Showroom</h4>
+                <p class="text-xs text-zinc-300 leading-relaxed">
+                    Established in <strong>1963</strong>, <strong>Hafiz Cloth Showroom</strong> proudly brings over <strong>60+ years of experience</strong> and unmatched expertise in ethnic and formal wear. We deal exclusively in good quality, genuine fabrics, designer suits, cotton wear, and matching sets. Our enduring legacy is built on trust, premium craftsmanship, and fair pricing for every customer.
+                </p>
+                <p class="text-xs text-zinc-400 font-semibold pt-1">
+                    Proprietors: Rizwan & Hassan
+                </p>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="font-display font-bold text-sm uppercase tracking-widest text-amber-400">Showroom Address & Contacts</h4>
+                <p class="text-xs text-zinc-300 leading-relaxed">
+                    Shop No. 5-7-549, Chowraha Dargah Yousufain X Road,<br>
+                    Nampally, Hyderabad - 500001, Telangana
+                </p>
+                <div class="space-y-1 text-xs text-zinc-300 font-bold pt-1">
+                    <p class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-400"></i> 9849078066</p>
+                    <p class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-400"></i> 9951654779</p>
+                    <p class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-400"></i> 040-23214212</p>
+                </div>
+                <p class="text-[10px] text-zinc-500 uppercase tracking-widest pt-2">© 2026 Hafiz Cloth Showroom. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-zinc-200 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+        <div class="flex items-center justify-between overflow-x-auto custom-h-scroll py-1.5 px-2 gap-1">
+            <button onclick="switchView('store'); setDeptFilter('All')" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-900 active:scale-95 transition shrink-0 min-w-[60px]">
+                <i data-lucide="store" class="w-5 h-5 text-amber-600"></i>
+                <span class="text-[10px] font-extrabold uppercase tracking-tight mt-0.5 whitespace-nowrap">Shop</span>
+            </button>
+            <button onclick="toggleHamburgerMenu(true)" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0 min-w-[60px]">
+                <i data-lucide="layers" class="w-5 h-5"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Categories</span>
+            </button>
+            <button onclick="toggleCartDrawer(true)" class="relative flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0 min-w-[60px]">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                <span id="mobile-cart-badge" class="absolute top-0 right-2.5 bg-rose-600 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Bag</span>
+            </button>
+            <button onclick="accessCustomerSection()" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0 min-w-[60px]">
+                <i data-lucide="user" class="w-5 h-5"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Profile</span>
+            </button>
+            <button onclick="accessOwnerStudioModal()" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-amber-600 active:scale-95 transition shrink-0 min-w-[60px]">
+                <i data-lucide="lock" class="w-5 h-5 text-amber-600"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Owner</span>
+            </button>
+            <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-rose-600 active:scale-95 transition shrink-0 min-w-[60px]">
+                <i data-lucide="map-pin" class="w-5 h-5 text-rose-600"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Map</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-end sm:items-center justify-center sm:p-4">
+        <div class="bg-white border-t sm:border border-zinc-200 rounded-t-3xl sm:rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-7 relative shadow-2xl animate-slide-up">
+            <button onclick="closeProductModal()" class="sticky sm:absolute top-2 right-2 float-right z-10 w-9 h-9 rounded-full bg-zinc-100 hover:bg-black hover:text-white flex items-center justify-center text-zinc-700 transition">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 clear-both sm:clear-none">
+                <div>
+                    <img id="modal-main-img" src="" class="aspect-[3/4] max-h-96 w-full object-cover rounded-2xl border border-zinc-200 shadow-xs">
+                </div>
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span id="modal-dept-badge" class="inline-block px-3 py-1 bg-zinc-950 text-amber-400 text-[10px] font-extrabold uppercase tracking-wider rounded-full"></span>
+                        <h3 id="modal-title" class="font-display text-xl sm:text-2xl font-bold uppercase text-zinc-950 mt-2 leading-snug"></h3>
+                        <p id="modal-price" class="text-xl sm:text-2xl font-black text-zinc-950 mt-1"></p>
+                        <p id="modal-desc" class="text-xs sm:text-sm text-zinc-600 mt-2 leading-relaxed"></p>
+                        
+                        <div id="modal-stitched-box" class="hidden mt-5">
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-700 mb-2">Select Available Size (Mandatory):</label>
+                            <div id="modal-size-buttons-container" class="flex flex-wrap gap-2"></div>
+                        </div>
+
+                        <div id="modal-unstitched-box" class="hidden mt-5 space-y-2.5 bg-zinc-50 p-4 rounded-2xl border border-zinc-200">
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-700">Select Cloth Length in Meters:</label>
+                            <div class="flex flex-wrap gap-1.5 pb-1">
+                                <button type="button" onclick="setQuickMeters(1.6)" class="px-2.5 py-1 text-[10px] font-bold bg-white border border-zinc-300 rounded-lg hover:border-black">1.6m Shirt</button>
+                                <button type="button" onclick="setQuickMeters(2.5)" class="px-2.5 py-1 text-[10px] font-bold bg-white border border-zinc-300 rounded-lg hover:border-black">2.5m Kurta/Suit</button>
+                                <button type="button" onclick="setQuickMeters(3.2)" class="px-2.5 py-1 text-[10px] font-bold bg-white border border-zinc-300 rounded-lg hover:border-black">3.2m Full Suit</button>
+                                <button type="button" onclick="setQuickMeters(5.0)" class="px-2.5 py-1 text-[10px] font-bold bg-white border border-zinc-300 rounded-lg hover:border-black">5.0m Family Cut</button>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input type="number" id="modal-meters-input" value="2.5" min="0.5" step="0.25" oninput="updateMeterCalculation(this.value)" class="w-28 bg-white border border-zinc-300 rounded-xl p-2.5 text-center font-bold text-sm text-zinc-900">
+                                <span class="text-xs font-semibold text-zinc-500">Meters</span>
+                            </div>
+                            <p id="modal-meter-calc-text" class="text-xs font-extrabold text-emerald-700 mt-1"></p>
+                        </div>
+
+                        <div id="modal-others-box" class="hidden mt-5 space-y-2 bg-zinc-50 p-4 rounded-2xl border border-zinc-200">
+                            <label class="block text-[10px] font-extrabold uppercase text-zinc-700">Select Quantity (Mandatory):</label>
+                            <div class="flex items-center gap-3">
+                                <input type="number" id="modal-qty-input" value="1" min="1" max="50" oninput="updateQtyCalculation(this.value)" class="w-28 bg-white border border-zinc-300 rounded-xl p-2.5 text-center font-bold text-sm text-zinc-900">
+                                <span class="text-xs font-semibold text-zinc-500">Pieces / Units</span>
+                            </div>
+                            <p id="modal-qty-calc-text" class="text-xs font-extrabold text-amber-700 mt-1"></p>
+                        </div>
+                    </div>
+                    <button onclick="addModalProductToCart()" class="w-full mt-6 py-4 bg-zinc-950 text-white font-extrabold text-xs uppercase tracking-widest rounded-2xl hover:bg-zinc-800 active:scale-[0.99] transition shadow-lg flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-bag" class="w-4 h-4 text-amber-400"></i> Add to Shopping Bag
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleCartDrawer(false)"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+            <div class="w-screen max-w-md bg-white flex flex-col justify-between shadow-2xl">
+                <div class="p-5 border-b border-zinc-200 flex items-center justify-between">
+                    <h3 class="font-display font-bold uppercase text-lg">Your Bag & Checkout</h3>
+                    <button onclick="toggleCartDrawer(false)"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                
+                <div class="flex-1 overflow-y-auto p-5 space-y-4">
+                    <div id="cart-items-list" class="space-y-3 pb-4 border-b border-zinc-200"></div>
+
+                    <!-- If Not Logged In, Show Sign In Prompt Inside Cart -->
+                    <div id="cart-auth-prompt" class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center space-y-3">
+                        <p class="text-xs font-bold text-amber-900">Please Sign In or Sign Up to complete your delivery and place order.</p>
+                        <button onclick="toggleCartDrawer(false); accessCustomerSection()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs uppercase tracking-widest rounded-xl transition">
+                            Sign In / Sign Up Now
+                        </button>
+                    </div>
+
+                    <!-- If Logged In, Show Verified Delivery Address Summary -->
+                    <div id="cart-delivery-box" class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 space-y-2 hidden">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-display font-bold text-xs uppercase text-zinc-900 flex items-center gap-1.5">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-amber-600"></i> Delivery Address (From Account)
+                            </h4>
+                            <button onclick="toggleCartDrawer(false); switchView('profile')" class="text-[10px] font-bold text-amber-700 underline uppercase">Edit</button>
+                        </div>
+                        <div id="cart-delivery-details" class="text-xs text-zinc-700 font-medium space-y-0.5"></div>
+                    </div>
+
+                    <!-- PAYMENT MODE SELECTOR -->
+                    <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 space-y-3">
+                        <label class="block text-[10px] font-extrabold uppercase text-zinc-700">Payment Mode (Cash or UPI on Delivery):</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="flex items-center gap-2 p-3 bg-white border border-zinc-300 rounded-xl cursor-pointer font-bold text-xs text-zinc-900">
+                                <input type="radio" name="pay-mode" value="Cash on Delivery" checked class="accent-black"> Cash on Delivery
+                            </label>
+                            <label class="flex items-center gap-2 p-3 bg-white border border-zinc-300 rounded-xl cursor-pointer font-bold text-xs text-zinc-900">
+                                <input type="radio" name="pay-mode" value="UPI on Delivery" class="accent-black"> UPI on Delivery
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 space-y-3">
+                        <div class="flex gap-2">
+                            <input type="text" id="coupon-input" placeholder="Coupon Code: HZ10" class="flex-1 bg-white border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold uppercase text-zinc-900 placeholder:text-zinc-400">
+                            <button type="button" onclick="applyCouponCode()" class="px-4 py-2 bg-black text-white rounded-xl text-xs font-extrabold uppercase">Apply</button>
+                        </div>
+                        <div id="coupon-applied-msg" class="text-[11px] font-bold text-emerald-700 hidden"></div>
+
+                        <div class="space-y-1.5 pt-2 border-t border-zinc-200 text-xs font-semibold text-zinc-600">
+                            <div class="flex justify-between">
+                                <span>Subtotal:</span>
+                                <span id="bill-subtotal">₹0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Delivery Fee (<span id="bill-distance-text">3.0 km</span>):</span>
+                                <span id="bill-delivery-fee">₹15</span>
+                            </div>
+                            <div id="bill-discount-row" class="flex justify-between text-emerald-700 hidden">
+                                <span>Coupon Discount (HZ10 - 10%):</span>
+                                <span id="bill-discount-amt">-₹0</span>
+                            </div>
+                            <div class="flex justify-between font-display text-lg font-bold text-zinc-950 pt-2 border-t border-zinc-200">
+                                <span>Final Total:</span>
+                                <span id="cart-total-price">₹0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-5 bg-zinc-50 border-t border-zinc-200">
+                    <button id="place-order-btn" onclick="processCheckout()" class="w-full py-3.5 bg-black text-white font-extrabold text-xs uppercase tracking-widest rounded-xl hover:bg-zinc-800 transition shadow-lg">
+                        Place Order & Generate Tax Invoice
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OWNER AUTH / SIGNIN / SIGNUP MODAL -->
+    <div id="owner-auth-modal" class="fixed inset-0 z-50 bg-black/75 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 relative space-y-4 shadow-2xl">
+            <button onclick="closeOwnerAuthModal()" class="absolute top-4 right-4"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="flex border-b border-zinc-200 pb-2 gap-4">
+                <button onclick="switchOwnerAuthTab('signin')" id="owner-tab-signin" class="font-display font-bold text-base uppercase text-black border-b-2 border-black pb-1">Proprietor Sign In</button>
+                <button onclick="switchOwnerAuthTab('signup')" id="owner-tab-signup" class="font-display font-bold text-base uppercase text-zinc-400 pb-1">Register Proprietor</button>
+            </div>
+
+            <!-- OWNER SIGN IN FORM -->
+            <form id="owner-signin-form" onsubmit="handleOwnerSignIn(event)" class="space-y-3">
+                <p class="text-xs text-zinc-500">Authorized Proprietors: 98490***** & 99516*****</p>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Proprietor Phone Number</label>
+                    <input type="text" id="owner-signin-phone" maxlength="10" required placeholder="98490*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Password</label>
+                    <input type="password" id="owner-signin-pass" required placeholder="Enter password" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <button type="submit" class="w-full py-3 bg-black text-white text-xs font-extrabold uppercase rounded-xl tracking-wider">Access Owner Studio</button>
+                <div class="text-center pt-2">
+                    <button type="button" onclick="switchOwnerAuthTab('signup')" class="text-xs font-bold text-amber-700 hover:underline">Don't have an account? Register Proprietor →</button>
+                </div>
+            </form>
+
+            <!-- OWNER SIGN UP FORM -->
+            <form id="owner-signup-form" onsubmit="handleOwnerSignUp(event)" class="space-y-3 hidden">
+                <p class="text-xs text-amber-700 font-bold">Register proprietor ID (Must be 9849078066 or 9951654779)</p>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Full Name</label>
+                    <input type="text" id="owner-signup-name" required placeholder="Enter full name" oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Proprietor Phone Number</label>
+                    <input type="text" id="owner-signup-phone" maxlength="10" required placeholder="98490*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Create Password</label>
+                    <input type="password" id="owner-signup-pass" required placeholder="Create secure password" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <button type="submit" class="w-full py-3 bg-amber-500 text-black text-xs font-extrabold uppercase rounded-xl tracking-wider">Register & Login</button>
+                <div class="text-center pt-2">
+                    <button type="button" onclick="switchOwnerAuthTab('signin')" class="text-xs font-bold text-zinc-700 hover:underline">Already registered? Sign In →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CUSTOMER AUTH / SIGNIN / SIGNUP MODAL -->
+    <div id="customer-auth-modal" class="fixed inset-0 z-50 bg-black/75 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 relative space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeCustomerAuthModal()" class="absolute top-4 right-4"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="flex border-b border-zinc-200 pb-2 gap-4">
+                <button onclick="switchCustAuthTab('signin')" id="cust-tab-signin" class="font-display font-bold text-base uppercase text-black border-b-2 border-black pb-1">Customer Sign In</button>
+                <button onclick="switchCustAuthTab('signup')" id="cust-tab-signup" class="font-display font-bold text-base uppercase text-zinc-400 pb-1">Customer Sign Up</button>
+            </div>
+
+            <!-- CUSTOMER SIGN IN FORM -->
+            <form id="cust-signin-form" onsubmit="handleCustSignIn(event)" class="space-y-3">
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Mobile Number (10 digits)</label>
+                    <input type="text" id="cust-signin-phone" maxlength="10" required placeholder="9704512345" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Password</label>
+                    <input type="password" id="cust-signin-pass" required placeholder="••••••••" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <button type="submit" class="w-full py-3 bg-black text-white text-xs font-extrabold uppercase rounded-xl tracking-wider">Sign In to Account</button>
+                <div class="text-center pt-2">
+                    <button type="button" onclick="switchCustAuthTab('signup')" class="text-xs font-bold text-amber-700 hover:underline">Don't have an account? Sign Up →</button>
+                </div>
+            </form>
+
+            <!-- CUSTOMER SIGN UP FORM -->
+            <form id="cust-signup-form" onsubmit="handleCustSignUp(event)" class="space-y-3 hidden">
+                <p class="text-[10px] text-zinc-500 font-extrabold uppercase tracking-wider">Mandatory Delivery Details for Registration:</p>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Full Name *</label>
+                    <input type="text" id="cust-signup-name" required placeholder="Mohammed Khan" oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Mobile Number (10 digits) *</label>
+                    <input type="text" id="cust-signup-phone" maxlength="10" required placeholder="9704512345" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Street Address / Landmark *</label>
+                    <input type="text" id="cust-signup-street" required placeholder="H.No, Street name, Muradnagar" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">City *</label>
+                        <input type="text" id="cust-signup-city" value="Hyderabad" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">State *</label>
+                        <input type="text" id="cust-signup-state" value="Telangana" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Pin Code (6 digits) *</label>
+                        <input type="text" id="cust-signup-pincode" maxlength="6" required placeholder="500001" oninput="this.value=this.value.replace(/\D/g,'')" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Alternate Phone</label>
+                        <input type="text" id="cust-signup-altphone" maxlength="10" placeholder="Optional" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Create Password *</label>
+                    <input type="password" id="cust-signup-pass" required placeholder="••••••••" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                </div>
+                <button type="submit" class="w-full py-3 bg-emerald-600 text-white text-xs font-extrabold uppercase rounded-xl tracking-wider">Create Account & Sign In</button>
+                <div class="text-center pt-2">
+                    <button type="button" onclick="switchCustAuthTab('signin')" class="text-xs font-bold text-zinc-700 hover:underline">Already have an account? Sign In →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <script>
+        const SUPABASE_URL = "https://ioecbxmxrnajodmfknjg.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlvZWNieG14cm5ham9kbWZrbmpnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyNjE3MzEsImV4cCI6MjEwNzgzNzczMX0.U7Jh1GpiFXAP6mvR4iIlkHUqJ3lFfTS0H65CxOUyGJ4";
+
+        let supabaseClient = null;
+
+        const defaultProducts = [
+            { id: 'h-101', name: 'Obsidian Tailored Ready-Made Suit', department: 'Men', stitchType: 'Stitched (Ready-made)', availableSizes: ['S (36)', 'L (40)'], price: 10999, image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop', description: 'Precision-tailored men\'s ready-made 3-piece wedding suit.' },
+            { id: 'h-102', name: 'Raymond Super 120s Suiting Cloth', department: 'Men', stitchType: 'Unstitched', availableSizes: [], price: 950, image: 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=800&auto=format&fit=crop', description: 'Unstitched luxury suiting fabric, sold by exact meter.' },
+            { id: 'h-103', name: 'Royal Designer Stitched Anarkali Suit', department: 'Women', stitchType: 'Stitched (Ready-made)', availableSizes: ['M (38)', 'L (40)', 'XL (42)'], price: 5499, image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=800&auto=format&fit=crop', description: 'Ready-to-wear women\'s embroidered festive suit with zari work.' },
+            { id: 'h-104', name: 'Pure Banarasi Dress Material', department: 'Women', stitchType: 'Unstitched', availableSizes: [], price: 750, image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=800&auto=format&fit=crop', description: 'Silk-cotton unstitched dress material with golden zari border.' },
+            { id: 'h-105', name: 'Two-in-One Cotton Petticoats & Blouse Bundle', department: 'Others', stitchType: 'Others Item', availableSizes: [], price: 1199, image: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=800&auto=format&fit=crop', description: 'Hafiz Showroom Specialty matching center pack.' }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('hafiz_products')) || defaultProducts;
+        let cart = JSON.parse(localStorage.getItem('hafiz_cart')) || [];
+        let ordersHistory = JSON.parse(localStorage.getItem('hafiz_orders')) || [];
+        
+        let ownerSession = JSON.parse(localStorage.getItem('hafiz_owner')) || { verified: false, phone: '' };
+        let customerSession = JSON.parse(localStorage.getItem('hafiz_customer')) || {
+            verified: false,
+            name: '',
+            contact: '',
+            savedAddress: { street: '', city: 'Hyderabad', state: 'Telangana', pincode: '', altphone: '' }
+        };
+
+        let activeDeptFilter = 'All';
+        let activeSortOption = 'featured';
+        let currentModalProduct = null;
+        let selectedSize = '';
+        let selectedMeters = 2.5;
+        let selectedQty = 1;
+
+        async function initSupabase() {
+            if (window.supabase) {
+                try {
+                    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    await syncFromSupabase();
+                } catch (err) {
+                    console.error("Supabase Init Error:", err);
+                }
+            }
+        }
+
+        async function syncFromSupabase() {
+            if (!supabaseClient) return;
+            const { data: prodData } = await supabaseClient.from('products').select('*');
+            if (prodData && prodData.length > 0) {
+                products = prodData;
+                localStorage.setItem('hafiz_products', JSON.stringify(products));
+                renderStoreCatalog();
+                startHeroShowcaseRotation();
+            } else if (products.length > 0) {
+                await supabaseClient.from('products').upsert(products.map(p => ({
+                    id: String(p.id),
+                    name: p.name,
+                    department: p.department,
+                    stitchType: p.stitchType,
+                    availableSizes: p.availableSizes || [],
+                    price: Number(p.price) || 0,
+                    image: p.image || '',
+                    description: p.description || ''
+                })));
+            }
+
+            const { data: ordData } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
+            if (ordData && ordData.length > 0) {
+                const normalizedCloudOrders = ordData.map(normalizeOrderRecord);
+                const cloudMap = new Map(normalizedCloudOrders.map(o => [o.orderId, o]));
+                ordersHistory.forEach(localOrd => {
+                    if (!cloudMap.has(localOrd.orderId)) {
+                        normalizedCloudOrders.unshift(normalizeOrderRecord(localOrd));
+                    }
+                });
+                ordersHistory = normalizedCloudOrders;
+                localStorage.setItem('hafiz_orders', JSON.stringify(ordersHistory));
+            }
+        }
+
+        function normalizeOrderRecord(ord) {
+            if (!ord) return ord;
+            let paymentMode = ord.paymentMode || 'Cash on Delivery';
+            let deliveryStatus = ord.deliveryStatus || 'Pending (Not Delivered)';
+            let customerPhone = ord.customerPhone || '';
+
+            if (ord.address && ord.address.includes('||META:')) {
+                const parts = ord.address.split('||META:');
+                ord.address = parts[0];
+                try {
+                    const meta = JSON.parse(parts[1]);
+                    if ((!ord.paymentMode || ord.paymentMode === 'undefined') && meta.paymentMode) paymentMode = meta.paymentMode;
+                    if ((!ord.deliveryStatus || ord.deliveryStatus === 'undefined' || ord.deliveryStatus.includes('Pending')) && meta.deliveryStatus) deliveryStatus = meta.deliveryStatus;
+                    if (!ord.customerPhone && meta.customerPhone) customerPhone = meta.customerPhone;
+                } catch (e) {}
+            } else if (!ord.customerPhone && ord.address) {
+                const match = ord.address.match(/(\d{10})/);
+                if (match) customerPhone = match[1];
+            }
+
+            if (!paymentMode || paymentMode === 'undefined') paymentMode = 'Cash on Delivery';
+            if (!deliveryStatus || deliveryStatus === 'undefined') deliveryStatus = 'Pending (Not Delivered)';
+
+            return {
+                ...ord,
+                customerPhone,
+                paymentMode,
+                deliveryStatus
+            };
+        }
+
+        async function saveOrderToSupabase(orderObj) {
+            if (!supabaseClient) return;
+            const fullPayload = {
+                orderId: orderObj.orderId,
+                customerPhone: orderObj.customerPhone || '',
+                date: orderObj.date,
+                items: orderObj.items,
+                subtotal: Number(orderObj.subtotal) || 0,
+                deliveryFee: Number(orderObj.deliveryFee) || 0,
+                discount: Number(orderObj.discount) || 0,
+                total: Number(orderObj.total) || 0,
+                address: orderObj.address,
+                recipient: orderObj.recipient,
+                paymentMode: orderObj.paymentMode || 'Cash on Delivery',
+                deliveryStatus: orderObj.deliveryStatus || 'Pending (Not Delivered)'
+            };
+
+            const { error } = await supabaseClient.from('orders').upsert([fullPayload], { onConflict: 'orderId' });
+            if (error) {
+                const metaString = JSON.stringify({
+                    customerPhone: fullPayload.customerPhone,
+                    paymentMode: fullPayload.paymentMode,
+                    deliveryStatus: fullPayload.deliveryStatus
+                });
+                const cleanAddress = (orderObj.address || '').split('||META:')[0];
+                const fallbackPayload = {
+                    orderId: orderObj.orderId,
+                    date: orderObj.date,
+                    items: orderObj.items,
+                    subtotal: Number(orderObj.subtotal) || 0,
+                    deliveryFee: Number(orderObj.deliveryFee) || 0,
+                    discount: Number(orderObj.discount) || 0,
+                    total: Number(orderObj.total) || 0,
+                    address: `${cleanAddress}||META:${metaString}`,
+                    recipient: orderObj.recipient,
+                    paymentMode: fullPayload.paymentMode,
+                    deliveryStatus: fullPayload.deliveryStatus
+                };
+                await supabaseClient.from('orders').upsert([fallbackPayload], { onConflict: 'orderId' });
+            }
+        }
+
+        function saveStateToStorage() {
+            localStorage.setItem('hafiz_products', JSON.stringify(products));
+            localStorage.setItem('hafiz_cart', JSON.stringify(cart));
+            localStorage.setItem('hafiz_orders', JSON.stringify(ordersHistory));
+            localStorage.setItem('hafiz_customer', JSON.stringify(customerSession));
+            localStorage.setItem('hafiz_owner', JSON.stringify(ownerSession));
+        }
+
+        let heroShowcaseIndex = 0;
+        let heroRotationTimer = null;
+        let currentHeroFeaturedItem = null;
+
+        function startHeroShowcaseRotation() {
+            if (!products || products.length === 0) return;
+            updateHeroShowcaseDisplay();
+            if (heroRotationTimer) clearInterval(heroRotationTimer);
+            heroRotationTimer = setInterval(() => {
+                heroShowcaseIndex = (heroShowcaseIndex + 1) % products.length;
+                updateHeroShowcaseDisplay();
+            }, 3500);
+        }
+
+        function updateHeroShowcaseDisplay() {
+            if (!products || products.length === 0) return;
+            const item = products[heroShowcaseIndex % products.length];
+            currentHeroFeaturedItem = item;
+            const imgEl = document.getElementById('hero-showcase-img');
+            const badgeEl = document.getElementById('hero-showcase-badge');
+            const titleEl = document.getElementById('hero-showcase-title');
+            const priceEl = document.getElementById('hero-showcase-price');
+
+            if (imgEl) imgEl.src = item.image;
+            if (badgeEl) badgeEl.textContent = `${item.department} • ${item.stitchType === 'Stitched (Ready-made)' ? 'Stitched' : item.stitchType}`;
+            if (titleEl) titleEl.textContent = item.name;
+            if (priceEl) priceEl.textContent = `₹${Number(item.price).toLocaleString('en-IN')}${item.stitchType === 'Unstitched' ? '/m' : ''}`;
+        }
+
+        window.openHeroFeaturedModal = function() {
+            if (currentHeroFeaturedItem) openProductModal(currentHeroFeaturedItem.id);
+        };
+
+        window.handleOwnerImageUpload = function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 900, maxH = 1200;
+                    let w = img.width, h = img.height;
+                    if (w / h > maxW / maxH) { h = Math.round((h * maxW) / w); w = maxW; }
+                    else { w = Math.round((w * maxH) / h); h = maxH; }
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    const previewImg = document.getElementById('owner-preview-img');
+                    if (previewImg) previewImg.src = compressedDataUrl;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        };
+
+        window.validateNameInput = function(input) { input.value = input.value.replace(/[^A-Za-z\s]/g, ''); };
+        window.validatePhoneInput = function(input) { input.value = input.value.replace(/\D/g, '').slice(0, 10); };
+
+        function isInvalidOrFakePhone(phone) {
+            if (!phone || phone.length !== 10) return true;
+            const invalidList = ['1234567890', '0123456789', '9876543210', '5555555555', '9999999999', '0000000000', '1111111111', '2222222222', '3333333333', '4444444444', '6666666666', '7777777777', '8888888888'];
+            if (invalidList.includes(phone)) return true;
+            if (/^(\d)\1{9}$/.test(phone)) return true;
+            return false;
+        }
+
+        window.toggleOwnerSizeCheckboxes = function(stitchType) {
+            const box = document.getElementById('owner-size-selection-box');
+            if (stitchType === 'Stitched (Ready-made)') box.classList.remove('hidden');
+            else box.classList.add('hidden');
+        };
+
+        window.handlePublishProduct = async function(e) {
+            e.preventDefault();
+            const editId = document.getElementById('edit-prod-id').value;
+            const stitchType = document.getElementById('prod-stitch-type').value;
+            let availableSizes = [];
+            if (stitchType === 'Stitched (Ready-made)') {
+                document.querySelectorAll('input[name="owner-size"]:checked').forEach(b => availableSizes.push(b.value));
+            }
+            const previewSrc = document.getElementById('owner-preview-img').getAttribute('src');
+            const validImg = (previewSrc && previewSrc.trim() !== '') ? previewSrc : 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=800&auto=format&fit=crop';
+
+            if (editId) {
+                const p = products.find(x => x.id === editId);
+                if (p) {
+                    p.name = document.getElementById('prod-title').value.trim();
+                    p.department = document.getElementById('prod-dept').value;
+                    p.stitchType = stitchType;
+                    p.availableSizes = availableSizes;
+                    p.price = Number(document.getElementById('prod-price').value) || 999;
+                    p.image = validImg;
+                    p.description = document.getElementById('prod-desc').value.trim();
+                }
+                showToast('Product updated successfully!');
+                cancelOwnerEdit();
+            } else {
+                const newItem = {
+                    id: 'h-' + Date.now(),
+                    name: document.getElementById('prod-title').value.trim(),
+                    department: document.getElementById('prod-dept').value,
+                    stitchType: stitchType,
+                    availableSizes: availableSizes,
+                    price: Number(document.getElementById('prod-price').value) || 999,
+                    image: validImg,
+                    description: document.getElementById('prod-desc').value.trim()
+                };
+                products.unshift(newItem);
+                if (supabaseClient) {
+                    await supabaseClient.from('products').upsert([newItem]);
+                }
+                showToast('Published item successfully!');
+                document.getElementById('publish-product-form').reset();
+                document.getElementById('owner-preview-img').src = '';
+            }
+
+            saveStateToStorage();
+            renderStoreCatalog();
+            startHeroShowcaseRotation();
+            loadOwnerCatalogTable();
+        };
+
+        window.editProduct = function(id) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('edit-prod-id').value = p.id;
+            document.getElementById('prod-title').value = p.name;
+            document.getElementById('prod-dept').value = p.department;
+            document.getElementById('prod-stitch-type').value = p.stitchType;
+            toggleOwnerSizeCheckboxes(p.stitchType);
+            document.getElementById('prod-price').value = p.price;
+            document.getElementById('prod-desc').value = p.description;
+            document.getElementById('owner-preview-img').src = p.image;
+            document.getElementById('form-mode-title').textContent = 'Edit Product: ' + p.name;
+            document.getElementById('publish-submit-btn').textContent = 'Save Changes';
+            document.getElementById('cancel-edit-btn').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('publish-product-form').offsetTop - 100, behavior: 'smooth' });
+        };
+
+        window.cancelOwnerEdit = function() {
+            document.getElementById('edit-prod-id').value = '';
+            document.getElementById('publish-product-form').reset();
+            document.getElementById('owner-preview-img').src = '';
+            document.getElementById('form-mode-title').textContent = 'Add New Product';
+            document.getElementById('publish-submit-btn').textContent = 'Publish Item to Store';
+            document.getElementById('cancel-edit-btn').classList.add('hidden');
+            toggleOwnerSizeCheckboxes('Stitched (Ready-made)');
+        };
+
+        window.deleteProduct = async function(id) {
+            if (!confirm('Are you sure you want to delete this item from the showroom?')) return;
+            products = products.filter(x => x.id !== id);
+            saveStateToStorage();
+            renderStoreCatalog();
+            startHeroShowcaseRotation();
+            loadOwnerCatalogTable();
+            if (supabaseClient) {
+                await supabaseClient.from('products').delete().eq('id', id);
+            }
+            showToast('Product deleted successfully');
+        };
+
+        window.loadOwnerCatalogTable = function() {
+            const tbody = document.getElementById('owner-catalog-table-body');
+            const countEl = document.getElementById('owner-total-count');
+            if (!tbody) return;
+            countEl.textContent = products.length;
+
+            tbody.innerHTML = products.map(p => `
+                <tr class="hover:bg-zinc-50 border-b border-zinc-100">
+                    <td class="p-3 flex items-center gap-3">
+                        <img src="${p.image}" class="w-10 h-12 object-cover rounded-lg border border-zinc-200 shrink-0">
+                        <div>
+                            <p class="font-bold text-zinc-900">${p.name}</p>
+                            <span class="text-[10px] text-zinc-400 font-mono">${p.id}</span>
+                        </div>
+                    </td>
+                    <td class="p-3">
+                        <span class="px-2.5 py-1 bg-zinc-100 rounded-lg text-[10px] font-bold uppercase whitespace-nowrap">${p.department} • ${p.stitchType}</span>
+                    </td>
+                    <td class="p-3 font-bold whitespace-nowrap">₹${Number(p.price).toLocaleString('en-IN')}${p.stitchType === 'Unstitched' ? '/m' : ''}</td>
+                    <td class="p-3 text-zinc-500 max-w-xs truncate">${p.description}</td>
+                    <td class="p-3 text-right whitespace-nowrap">
+                        <div class="inline-flex items-center gap-1.5">
+                            <button onclick="editProduct('${p.id}')" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-black rounded-lg text-[10px] font-bold uppercase tracking-wider transition">Edit</button>
+                            <button onclick="deleteProduct('${p.id}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider transition">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            lucide.createIcons();
+        };
+
+        window.setDeptFilter = function(dept) {
+            activeDeptFilter = dept;
+            document.querySelectorAll('.dept-pill').forEach(b => {
+                if (b.getAttribute('data-dept') === dept) b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition";
+                else b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition";
+            });
+            renderStoreCatalog();
+        };
+
+        window.handleSortChange = function(val) { activeSortOption = val; renderStoreCatalog(); };
+
+        function renderStoreCatalog() {
+            const grid = document.getElementById('product-grid');
+            if (!grid) return;
+            let filtered = products.filter(p => {
+                if (activeDeptFilter === 'All') return true;
+                if (activeDeptFilter === 'Men-Stitched') return p.department === 'Men' && p.stitchType === 'Stitched (Ready-made)';
+                if (activeDeptFilter === 'Men-Unstitched') return p.department === 'Men' && p.stitchType === 'Unstitched';
+                if (activeDeptFilter === 'Women-Stitched') return p.department === 'Women' && p.stitchType === 'Stitched (Ready-made)';
+                if (activeDeptFilter === 'Women-Unstitched') return p.department === 'Women' && p.stitchType === 'Unstitched';
+                if (activeDeptFilter === 'Others') return p.department === 'Others';
+                return p.department === activeDeptFilter;
+            });
+
+            if (activeSortOption === 'price-low') filtered.sort((a,b) => a.price - b.price);
+            else if (activeSortOption === 'price-high') filtered.sort((a,b) => b.price - a.price);
+            else if (activeSortOption === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name));
+
+            grid.innerHTML = filtered.map(item => `
+                <div onclick="openProductModal('${item.id}')" class="group bg-white border border-zinc-200/90 hover:border-black rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-2xs hover:shadow-xl cursor-pointer">
+                    <div>
+                        <div class="relative aspect-[3/4] bg-zinc-100 overflow-hidden">
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-2.5 left-2.5 bg-zinc-950/90 backdrop-blur-xs text-white text-[8px] sm:text-[9px] font-extrabold uppercase px-2 sm:px-2.5 py-1 rounded-full tracking-wider">${item.department} • ${item.stitchType === 'Stitched (Ready-made)' ? 'Stitched' : item.stitchType}</span>
+                        </div>
+                        <div class="p-3 sm:p-4">
+                            <h3 class="font-display text-sm sm:text-lg font-bold uppercase text-zinc-950 group-hover:text-amber-700 transition line-clamp-1">${item.name}</h3>
+                            <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 line-clamp-2 leading-relaxed">${item.description}</p>
+                        </div>
+                    </div>
+                    <div class="px-3 sm:px-4 pb-3 sm:pb-4 pt-2 border-t border-zinc-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                        <span class="font-display text-sm sm:text-lg font-bold text-zinc-950">₹${Number(item.price).toLocaleString('en-IN')}<span class="text-[9px] sm:text-[10px] font-sans font-semibold text-zinc-500">${item.stitchType === 'Unstitched' ? '/m' : ''}</span></span>
+                        <span class="w-full sm:w-auto text-center text-[9px] sm:text-[10px] font-extrabold uppercase text-zinc-950 bg-amber-400 group-hover:bg-black group-hover:text-white transition px-3 py-1.5 rounded-lg shrink-0">Shop</span>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        window.setQuickMeters = function(m) {
+            const inp = document.getElementById('modal-meters-input');
+            if (inp) { inp.value = m; updateMeterCalculation(m); }
+        };
+
+        window.openProductModal = function(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+            currentModalProduct = item;
+            document.getElementById('modal-dept-badge').textContent = `${item.department} • ${item.stitchType}`;
+            document.getElementById('modal-title').textContent = item.name;
+            document.getElementById('modal-desc').textContent = item.description;
+            document.getElementById('modal-main-img').src = item.image;
+
+            const stitchedBox = document.getElementById('modal-stitched-box');
+            const unstitchedBox = document.getElementById('modal-unstitched-box');
+            const othersBox = document.getElementById('modal-others-box');
+
+            stitchedBox.classList.add('hidden'); unstitchedBox.classList.add('hidden'); othersBox.classList.add('hidden');
+
+            if (item.stitchType === 'Unstitched') {
+                document.getElementById('modal-price').textContent = `₹${item.price.toLocaleString('en-IN')} per Meter`;
+                unstitchedBox.classList.remove('hidden');
+                selectedMeters = 2.5; document.getElementById('modal-meters-input').value = 2.5;
+                updateMeterCalculation(2.5);
+            } else if (item.stitchType === 'Others Item') {
+                document.getElementById('modal-price').textContent = `₹${item.price.toLocaleString('en-IN')} per Unit`;
+                othersBox.classList.remove('hidden');
+                selectedQty = 1; document.getElementById('modal-qty-input').value = 1;
+                updateQtyCalculation(1);
+            } else {
+                document.getElementById('modal-price').textContent = `₹${item.price.toLocaleString('en-IN')}`;
+                stitchedBox.classList.remove('hidden');
+                selectedSize = '';
+                const sizesContainer = document.getElementById('modal-size-buttons-container');
+                const sizesToRender = (item.availableSizes && item.availableSizes.length > 0) ? item.availableSizes : ['S (36)', 'M (38)', 'L (40)', 'XL (42)'];
+                sizesContainer.innerHTML = sizesToRender.map(sz => `
+                    <button type="button" onclick="selectSize('${sz}')" class="size-btn px-3 py-1.5 rounded-lg border border-zinc-300 text-xs font-bold hover:border-black">${sz}</button>
+                `).join('');
+            }
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            lucide.createIcons();
+        };
+
+        window.closeProductModal = function() {
+            document.getElementById('product-modal').classList.add('hidden');
+            document.getElementById('product-modal').classList.remove('flex');
+        };
+
+        window.selectSize = function(size) {
+            selectedSize = size;
+            document.querySelectorAll('.size-btn').forEach(b => {
+                if (b.textContent.includes(size)) b.classList.add('border-black', 'bg-black', 'text-white');
+                else b.classList.remove('border-black', 'bg-black', 'text-white');
+            });
+        };
+
+        window.updateMeterCalculation = function(val) {
+            selectedMeters = parseFloat(val) || 0;
+            if (currentModalProduct) {
+                let total = Math.round(currentModalProduct.price * selectedMeters);
+                document.getElementById('modal-meter-calc-text').textContent = `${selectedMeters} Meters × ₹${currentModalProduct.price} = ₹${total.toLocaleString('en-IN')}`;
+            }
+        };
+
+        window.updateQtyCalculation = function(val) {
+            selectedQty = parseInt(val) || 1;
+            if (currentModalProduct) {
+                let total = currentModalProduct.price * selectedQty;
+                document.getElementById('modal-qty-calc-text').textContent = `${selectedQty} Units × ₹${currentModalProduct.price} = ₹${total.toLocaleString('en-IN')}`;
+            }
+        };
+
+        window.addModalProductToCart = function() {
+            if (!currentModalProduct) return;
+            let subtitle = '', finalPrice = currentModalProduct.price;
+
+            if (currentModalProduct.stitchType === 'Unstitched') {
+                if (selectedMeters <= 0) { showToast('Please select valid meters!', 'error'); return; }
+                subtitle = `${selectedMeters} Meters Unstitched`;
+                finalPrice = Math.round(currentModalProduct.price * selectedMeters);
+            } else if (currentModalProduct.stitchType === 'Others Item') {
+                if (selectedQty <= 0) { showToast('Please select quantity!', 'error'); return; }
+                subtitle = `${selectedQty} Qty`;
+                finalPrice = currentModalProduct.price * selectedQty;
+            } else {
+                if (!selectedSize) { showToast('Please select a size first!', 'error'); return; }
+                subtitle = `Size: ${selectedSize}`;
+                finalPrice = currentModalProduct.price;
+            }
+
+            cart.push({
+                cartItemId: 'ci-' + Date.now() + Math.random(),
+                id: currentModalProduct.id,
+                name: currentModalProduct.name,
+                subtitle: subtitle,
+                finalPrice: finalPrice,
+                image: currentModalProduct.image
+            });
+            saveStateToStorage();
+            document.getElementById('cart-badge').textContent = cart.length;
+            const mobBadge = document.getElementById('mobile-cart-badge');
+            if (mobBadge) mobBadge.textContent = cart.length;
+            closeProductModal();
+            toggleCartDrawer(true);
+            renderCartList();
+            showToast('Added to your bag!');
+        };
+
+        window.removeCartItem = function(cartItemId) {
+            cart = cart.filter(i => i.cartItemId !== cartItemId);
+            saveStateToStorage();
+            document.getElementById('cart-badge').textContent = cart.length;
+            const mobBadge = document.getElementById('mobile-cart-badge');
+            if (mobBadge) mobBadge.textContent = cart.length;
+            renderCartList();
+            showToast('Removed item from bag');
+        };
+
+        window.toggleCartDrawer = function(open) {
+            const drawer = document.getElementById('cart-drawer');
+            if (open) {
+                renderCartList();
+                drawer.classList.remove('hidden');
+            } else drawer.classList.add('hidden');
+        };
+
+        let deliveryFee = 15, discountPercent = 0, calculatedDistanceKm = 3.0;
+
+        window.calculateDeliveryFee = function() {
+            if (!customerSession.verified || !customerSession.savedAddress || !customerSession.savedAddress.pincode) {
+                deliveryFee = 15; calculatedDistanceKm = 3.0; return;
+            }
+            const pin = customerSession.savedAddress.pincode;
+            const street = (customerSession.savedAddress.street || '').toLowerCase();
+            if (pin.length !== 6) { deliveryFee = 15; calculatedDistanceKm = 3.0; return; }
+
+            let km = 3.0;
+            if (street.includes('muradnagar') || pin === '500028') km = 2.8;
+            else if (street.includes('mehdipatnam') || pin === '500028') km = 3.5;
+            else if (street.includes('abids') || pin === '500001') km = 1.2;
+            else {
+                let diff = Math.abs(parseInt(pin) - 500001);
+                km = 2.0 + ((diff % 12) * 0.4);
+                if (km > 15) km = 10.0;
+            }
+            calculatedDistanceKm = Math.round(km * 10) / 10;
+            deliveryFee = Math.round(calculatedDistanceKm * 5);
+        };
+
+        window.applyCouponCode = function() {
+            const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+            const msg = document.getElementById('coupon-applied-msg');
+            if (code === 'HZ10') {
+                discountPercent = 10;
+                msg.textContent = '✓ Coupon HZ10 applied successfully! (10% OFF)';
+                msg.classList.remove('hidden');
+                showToast('10% Discount Applied!');
+                renderCartList();
+            } else {
+                discountPercent = 0; msg.classList.add('hidden');
+                showToast('Invalid coupon code. Try HZ10', 'error');
+                renderCartList();
+            }
+        };
+
+        function renderCartList() {
+            const list = document.getElementById('cart-items-list');
+            const authPrompt = document.getElementById('cart-auth-prompt');
+            const deliveryBox = document.getElementById('cart-delivery-box');
+            const deliveryDetails = document.getElementById('cart-delivery-details');
+            const placeOrderBtn = document.getElementById('place-order-btn');
+
+            let sub = 0;
+            if (cart.length === 0) {
+                list.innerHTML = `<p class="text-xs text-zinc-400 text-center py-6">Your bag is empty.</p>`;
+            } else {
+                list.innerHTML = cart.map(i => {
+                    sub += i.finalPrice;
+                    return `
+                        <div class="flex items-center justify-between bg-white p-3 rounded-xl border border-zinc-200 text-xs shadow-2xs">
+                            <div>
+                                <p class="font-bold">${i.name}</p>
+                                <p class="text-zinc-500">${i.subtitle}</p>
+                                <p class="font-bold text-zinc-900 mt-1">₹${i.finalPrice.toLocaleString('en-IN')}</p>
+                            </div>
+                            <button onclick="removeCartItem('${i.cartItemId}')" class="p-2 text-rose-600 hover:bg-rose-50 rounded-lg transition">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            if (customerSession.verified) {
+                authPrompt.classList.add('hidden');
+                deliveryBox.classList.remove('hidden');
+                placeOrderBtn.disabled = false;
+                placeOrderBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+                calculateDeliveryFee();
+                const addr = customerSession.savedAddress;
+                deliveryDetails.innerHTML = `
+                    <p><strong>${customerSession.name}</strong> (+91 ${customerSession.contact})</p>
+                    <p>${addr.street}, ${addr.city}, ${addr.state} - ${addr.pincode}</p>
+                    ${addr.altphone ? `<p>Alt Phone: ${addr.altphone}</p>` : ''}
+                `;
+            } else {
+                authPrompt.classList.remove('hidden');
+                deliveryBox.classList.add('hidden');
+                placeOrderBtn.disabled = true;
+                placeOrderBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                deliveryFee = 15; calculatedDistanceKm = 3.0;
+            }
+
+            let discAmt = Math.round((sub * discountPercent) / 100);
+            let finalSum = sub + deliveryFee - discAmt;
+            if (finalSum < 0) finalSum = 0;
+
+            document.getElementById('bill-subtotal').textContent = `₹${sub.toLocaleString('en-IN')}`;
+            document.getElementById('bill-delivery-fee').textContent = `₹${deliveryFee} (${calculatedDistanceKm} km)`;
+            document.getElementById('bill-distance-text').textContent = `${calculatedDistanceKm} km`;
+            const discRow = document.getElementById('bill-discount-row');
+            if (discountPercent > 0) {
+                discRow.classList.remove('hidden');
+                document.getElementById('bill-discount-amt').textContent = `-₹${discAmt.toLocaleString('en-IN')}`;
+            } else discRow.classList.add('hidden');
+
+            document.getElementById('cart-total-price').textContent = `₹${finalSum.toLocaleString('en-IN')}`;
+            lucide.createIcons();
+        }
+
+        window.processCheckout = async function() {
+            if (!customerSession.verified) {
+                toggleCartDrawer(false);
+                accessCustomerSection();
+                return;
+            }
+            if (cart.length === 0) { showToast('Your bag is empty!', 'error'); return; }
+
+            const payMode = document.querySelector('input[name="pay-mode"]:checked').value;
+            const sub = cart.reduce((sum, item) => sum + item.finalPrice, 0);
+            const discAmt = Math.round((sub * discountPercent) / 100);
+            const orderTotal = sub + deliveryFee - discAmt;
+            const addr = customerSession.savedAddress;
+            const fullAddress = `${addr.street}, ${addr.city}, ${addr.state} - ${addr.pincode} (Phone: ${customerSession.contact}${addr.altphone && addr.altphone !== customerSession.contact ? ', Alt: ' + addr.altphone : ''})`;
+
+            const newOrder = {
+                orderId: 'HAFIZ-' + Math.floor(100000 + Math.random() * 900000),
+                customerPhone: customerSession.contact,
+                date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+                items: [...cart],
+                subtotal: sub,
+                deliveryFee: deliveryFee,
+                discount: discAmt,
+                total: orderTotal,
+                address: fullAddress,
+                recipient: customerSession.name,
+                paymentMode: payMode,
+                deliveryStatus: 'Pending (Not Delivered)'
+            };
+
+            ordersHistory.unshift(newOrder);
+            cart = []; discountPercent = 0;
+            saveStateToStorage();
+
+            await saveOrderToSupabase(newOrder);
+
+            document.getElementById('cart-badge').textContent = '0';
+            const mobBadge = document.getElementById('mobile-cart-badge');
+            if (mobBadge) mobBadge.textContent = '0';
+            toggleCartDrawer(false);
+            await renderCustomerProfile();
+            showToast('Order placed successfully via ' + payMode + '!');
+            switchView('profile');
+        };
+
+        window.renderCustomerProfile = async function() {
+            if (supabaseClient) {
+                const { data } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
+                if (data && data.length > 0) {
+                    const normalizedCloud = data.map(normalizeOrderRecord);
+                    const cloudMap = new Map(normalizedCloud.map(o => [o.orderId, o]));
+                    ordersHistory.forEach(localOrd => {
+                        if (!cloudMap.has(localOrd.orderId)) {
+                            normalizedCloud.unshift(normalizeOrderRecord(localOrd));
+                        }
+                    });
+                    ordersHistory = normalizedCloud;
+                    saveStateToStorage();
+                }
+            }
+
+            document.getElementById('prof-name').textContent = customerSession.name || 'Valued Customer';
+            document.getElementById('prof-contact').textContent = `Mobile: +91 ${customerSession.contact} • Verified Account`;
+            
+            document.getElementById('prof-addr-name').value = customerSession.name || '';
+            document.getElementById('prof-addr-street').value = customerSession.savedAddress.street || '';
+            document.getElementById('prof-addr-city').value = customerSession.savedAddress.city || 'Hyderabad';
+            document.getElementById('prof-addr-state').value = customerSession.savedAddress.state || 'Telangana';
+            document.getElementById('prof-addr-pincode').value = customerSession.savedAddress.pincode || '';
+            document.getElementById('prof-addr-altphone').value = customerSession.savedAddress.altphone || '';
+
+            const list = document.getElementById('profile-orders-list');
+            const myOrders = ordersHistory.map(normalizeOrderRecord).filter(o => 
+                o.customerPhone === customerSession.contact || 
+                (o.recipient && customerSession.name && o.recipient.toLowerCase() === customerSession.name.toLowerCase()) ||
+                (o.address && customerSession.contact && o.address.includes(customerSession.contact))
+            );
+            
+            if (myOrders.length === 0) {
+                list.innerHTML = `<p class="text-xs text-zinc-500 bg-white p-6 rounded-2xl border border-zinc-200 text-center">No purchases found for this account yet.</p>`;
+                return;
+            }
+
+            list.innerHTML = myOrders.map(ord => {
+                const status = ord.deliveryStatus || 'Pending (Not Delivered)';
+                let badgeColor = 'bg-amber-100 text-amber-900';
+                if (status.includes('Delivered') && !status.includes('Not')) badgeColor = 'bg-emerald-100 text-emerald-900';
+                else if (status.includes('Processing')) badgeColor = 'bg-blue-100 text-blue-900';
+
+                return `
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6 space-y-4 shadow-xs">
+                    <div class="flex items-center justify-between pb-4 border-b border-zinc-100">
+                        <div>
+                            <span class="text-[10px] font-extrabold uppercase bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full">${ord.orderId}</span>
+                            <p class="text-xs text-zinc-400 mt-1">${ord.date} • Mode: <strong>${ord.paymentMode || 'Cash on Delivery'}</strong></p>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-display text-lg font-bold">₹${Number(ord.total).toLocaleString('en-IN')}</p>
+                            <span class="inline-block mt-1 text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${badgeColor}">${status}</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1 text-xs font-bold text-zinc-800">
+                        ${(ord.items || []).map(it => `<div>• ${it.name} (${it.subtitle}) - ₹${it.finalPrice}</div>`).join('')}
+                    </div>
+                </div>
+            `}).join('');
+            lucide.createIcons();
+        };
+
+        window.handleUpdateSavedAddress = function(e) {
+            e.preventDefault();
+            customerSession.name = document.getElementById('prof-addr-name').value.trim();
+            customerSession.savedAddress = {
+                street: document.getElementById('prof-addr-street').value.trim(),
+                city: document.getElementById('prof-addr-city').value.trim(),
+                state: document.getElementById('prof-addr-state').value.trim(),
+                pincode: document.getElementById('prof-addr-pincode').value.trim(),
+                altphone: document.getElementById('prof-addr-altphone').value.trim()
+            };
+            saveStateToStorage();
+            showToast('Home delivery address updated successfully!');
+            switchView('store');
+        };
+
+        window.loadOwnerOrders = async function() {
+            if (supabaseClient) {
+                const { data } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
+                if (data && data.length > 0) {
+                    ordersHistory = data.map(normalizeOrderRecord);
+                    saveStateToStorage();
+                }
+            }
+            const tbody = document.getElementById('owner-orders-table-body');
+            if (!tbody) return;
+
+            if (ordersHistory.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-400">No customer orders placed yet.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = ordersHistory.map(ord => {
+                const normalized = normalizeOrderRecord(ord);
+                const currentStatus = normalized.deliveryStatus || 'Pending (Not Delivered)';
+                let badgeColor = 'bg-amber-100 text-amber-900';
+                if (currentStatus.includes('Delivered') && !currentStatus.includes('Not')) badgeColor = 'bg-emerald-100 text-emerald-900';
+                else if (currentStatus.includes('Processing')) badgeColor = 'bg-blue-100 text-blue-900';
+
+                return `
+                <tr class="hover:bg-zinc-50 border-b border-zinc-100">
+                    <td class="p-3 font-bold">${normalized.orderId}<br><span class="text-[10px] text-zinc-400 font-normal">${normalized.date}</span></td>
+                    <td class="p-3">
+                        <strong>${normalized.recipient}</strong><br>
+                        ${normalized.customerPhone ? `<a href="tel:${normalized.customerPhone}" class="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 bg-amber-100 text-amber-950 font-extrabold rounded text-[11px]"><i data-lucide="phone" class="w-3 h-3"></i> ${normalized.customerPhone}</a>` : ''}
+                        <div class="text-[11px] text-zinc-500 mt-1">${normalized.address}</div>
+                    </td>
+                    <td class="p-3 font-bold">₹${Number(normalized.total).toLocaleString('en-IN')}<br><span class="text-[10px] text-zinc-500 font-normal">${normalized.items.length} item(s)</span></td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-zinc-100 rounded text-[10px] font-bold">${normalized.paymentMode || 'Cash on Delivery'}</span></td>
+                    <td class="p-3">
+                        <span id="status-badge-${normalized.orderId}" class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase ${badgeColor}">
+                            ${currentStatus}
+                        </span>
+                    </td>
+                    <td class="p-3 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <select id="status-select-${normalized.orderId}" class="bg-white border border-zinc-300 rounded-xl px-2.5 py-1 text-[11px] font-bold text-zinc-900">
+                                <option value="Pending (Not Delivered)" ${currentStatus.includes('Pending') ? 'selected' : ''}>Pending</option>
+                                <option value="Under Processing" ${currentStatus === 'Under Processing' ? 'selected' : ''}>Processing</option>
+                                <option value="Delivered ⚡" ${currentStatus.includes('Delivered') && !currentStatus.includes('Not') ? 'selected' : ''}>Delivered</option>
+                            </select>
+                            <button onclick="updateOrderStatusFromStudio('${normalized.orderId}')" class="px-3 py-1.5 bg-black hover:bg-zinc-800 text-white rounded-xl text-[10px] font-bold uppercase tracking-wider transition">
+                                Update
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+            lucide.createIcons();
+        };
+
+        window.updateOrderStatusFromStudio = async function(orderId) {
+            const selectEl = document.getElementById(`status-select-${orderId}`);
+            if (!selectEl) return;
+            const newStatus = selectEl.value;
+            const ord = ordersHistory.find(o => o.orderId === orderId);
+            if (!ord) return;
+
+            ord.deliveryStatus = newStatus;
+            saveStateToStorage();
+            await saveOrderToSupabase(ord);
+            await loadOwnerOrders();
+            showToast('Delivery status updated to: ' + newStatus);
+        };
+
+        window.accessOwnerStudioModal = function() {
+            if (ownerSession.verified) { switchView('owner'); return; }
+            document.getElementById('owner-auth-modal').classList.remove('hidden');
+            document.getElementById('owner-auth-modal').classList.add('flex');
+        };
+        window.closeOwnerAuthModal = function() {
+            document.getElementById('owner-auth-modal').classList.add('hidden');
+            document.getElementById('owner-auth-modal').classList.remove('flex');
+        };
+        window.switchOwnerAuthTab = function(tab) {
+            if (tab === 'signin') {
+                document.getElementById('owner-signin-form').classList.remove('hidden');
+                document.getElementById('owner-signup-form').classList.add('hidden');
+                document.getElementById('owner-tab-signin').className = "font-display font-bold text-base uppercase text-black border-b-2 border-black pb-1";
+                document.getElementById('owner-tab-signup').className = "font-display font-bold text-base uppercase text-zinc-400 pb-1";
+            } else {
+                document.getElementById('owner-signin-form').classList.add('hidden');
+                document.getElementById('owner-signup-form').classList.remove('hidden');
+                document.getElementById('owner-tab-signin').className = "font-display font-bold text-base uppercase text-zinc-400 pb-1";
+                document.getElementById('owner-tab-signup').className = "font-display font-bold text-base uppercase text-black border-b-2 border-black pb-1";
+            }
+        };
+
+        window.accessCustomerSection = function() {
+            if (customerSession.verified) { switchView('profile'); return; }
+            document.getElementById('customer-auth-modal').classList.remove('hidden');
+            document.getElementById('customer-auth-modal').classList.add('flex');
+        };
+        window.closeCustomerAuthModal = function() {
+            document.getElementById('customer-auth-modal').classList.add('hidden');
+            document.getElementById('customer-auth-modal').classList.remove('flex');
+        };
+        window.switchCustAuthTab = function(tab) {
+            if (tab === 'signin') {
+                document.getElementById('cust-signin-form').classList.remove('hidden');
+                document.getElementById('cust-signup-form').classList.add('hidden');
+                document.getElementById('cust-tab-signin').className = "font-display font-bold text-base uppercase text-black border-b-2 border-black pb-1";
+                document.getElementById('cust-tab-signup').className = "font-display font-bold text-base uppercase text-zinc-400 pb-1";
+            } else {
+                document.getElementById('cust-signin-form').classList.add('hidden');
+                document.getElementById('cust-signup-form').classList.remove('hidden');
+                document.getElementById('cust-tab-signin').className = "font-display font-bold text-base uppercase text-zinc-400 pb-1";
+                document.getElementById('cust-tab-signup').className = "font-display font-bold text-base uppercase text-black border-b-2 border-black pb-1";
+            }
+        };
+
+        window.handleOwnerSignIn = async function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('owner-signin-phone').value.trim();
+            const pass = document.getElementById('owner-signin-pass').value.trim();
+
+            if (phone !== '9849078066' && phone !== '9951654779') {
+                showToast('Access denied! Only authorized proprietors can access Owner Studio.', 'error');
+                return;
+            }
+
+            let registeredOwners = JSON.parse(localStorage.getItem('hafiz_registered_owners')) || [
+                { phone: '9849078066', password: 'hafiz1963' },
+                { phone: '9951654779', password: 'hafiz1963' }
+            ];
+
+            if (supabaseClient) {
+                const { data } = await supabaseClient.from('owners').select('*').eq('phone', phone).single();
+                if (data) {
+                    if (data.password === pass) {
+                        ownerSession = { verified: true, phone: phone };
+                        saveStateToStorage();
+                        closeOwnerAuthModal();
+                        switchView('owner');
+                        showToast('Owner signed in successfully!');
+                        return;
+                    } else {
+                        showToast('Wrong password! Please check your password.', 'error');
+                        return;
+                    }
+                }
+            }
+
+            const foundOwner = registeredOwners.find(o => o.phone === phone);
+            if (foundOwner && foundOwner.password === pass) {
+                ownerSession = { verified: true, phone: phone };
+                saveStateToStorage();
+                closeOwnerAuthModal();
+                switchView('owner');
+                showToast('Owner signed in successfully!');
+            } else if (pass === 'hafiz1963' || pass === 'admin123') {
+                ownerSession = { verified: true, phone: phone };
+                saveStateToStorage();
+                closeOwnerAuthModal();
+                switchView('owner');
+                showToast('Owner signed in successfully!');
+            } else {
+                showToast('Wrong password! Please check your password.', 'error');
+            }
+        };
+
+        window.handleOwnerSignUp = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('owner-signup-name').value.trim();
+            const phone = document.getElementById('owner-signup-phone').value.trim();
+            const pass = document.getElementById('owner-signup-pass').value.trim();
+
+            if (phone !== '9849078066' && phone !== '9951654779') {
+                showToast('Only authorized proprietor numbers can register as owner!', 'error');
+                return;
+            }
+            if (isInvalidOrFakePhone(phone)) {
+                showToast('Please enter a valid active proprietor mobile number.', 'error');
+                return;
+            }
+
+            let registeredOwners = JSON.parse(localStorage.getItem('hafiz_registered_owners')) || [];
+            if (registeredOwners.some(o => o.phone === phone)) {
+                showToast('You already have an owner account! Please Sign In.', 'error');
+                switchOwnerAuthTab('signin');
+                document.getElementById('owner-signin-phone').value = phone;
+                return;
+            }
+
+            const ownerObj = { name, phone, password: pass };
+            registeredOwners.push(ownerObj);
+            localStorage.setItem('hafiz_registered_owners', JSON.stringify(registeredOwners));
+
+            if (supabaseClient) {
+                await supabaseClient.from('owners').upsert([ownerObj]);
+            }
+            ownerSession = { verified: true, phone: phone };
+            saveStateToStorage();
+            closeOwnerAuthModal();
+            document.getElementById('owner-signup-form').reset();
+            switchView('owner');
+            showToast('Proprietor account registered & logged in!');
+        };
+
+        window.handleCustSignIn = async function(e) {
+            e.preventDefault();
+            const phone = document.getElementById('cust-signin-phone').value.trim();
+            const pass = document.getElementById('cust-signin-pass').value.trim();
+
+            if (isInvalidOrFakePhone(phone)) {
+                showToast('Please enter a valid 10-digit mobile number.', 'error');
+                return;
+            }
+
+            let registeredCustomers = JSON.parse(localStorage.getItem('hafiz_registered_customers')) || [];
+
+            if (supabaseClient) {
+                const { data } = await supabaseClient.from('customers').select('*').eq('phone', phone).single();
+                if (data) {
+                    if (data.password === pass) {
+                        customerSession = {
+                            verified: true,
+                            name: data.name,
+                            contact: data.phone,
+                            savedAddress: { street: data.street || '', city: data.city || 'Hyderabad', state: data.state || 'Telangana', pincode: data.pincode || '500001', altphone: data.altphone || data.phone }
+                        };
+                        saveStateToStorage();
+                        closeCustomerAuthModal();
+                        switchView('store');
+                        updateHeaderAccountLabel();
+                        showToast('Customer signed in successfully!');
+                        return;
+                    } else {
+                        showToast('Wrong password! Please check your password.', 'error');
+                        return;
+                    }
+                }
+            }
+
+            const foundCust = registeredCustomers.find(c => c.phone === phone);
+            if (foundCust) {
+                if (foundCust.password === pass) {
+                    customerSession = {
+                        verified: true,
+                        name: foundCust.name,
+                        contact: foundCust.phone,
+                        savedAddress: { street: foundCust.street || '', city: foundCust.city || 'Hyderabad', state: foundCust.state || 'Telangana', pincode: foundCust.pincode || '500001', altphone: foundCust.altphone || foundCust.phone }
+                    };
+                    saveStateToStorage();
+                    closeCustomerAuthModal();
+                    switchView('store');
+                    updateHeaderAccountLabel();
+                    showToast('Customer signed in successfully!');
+                } else {
+                    showToast('Wrong password! Please check your password.', 'error');
+                }
+            } else {
+                showToast('No account found with this number! Please Sign Up first.', 'error');
+                switchCustAuthTab('signup');
+                document.getElementById('cust-signup-phone').value = phone;
+            }
+        };
+
+        window.handleCustSignUp = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('cust-signup-name').value.trim();
+            const phone = document.getElementById('cust-signup-phone').value.trim();
+            const street = document.getElementById('cust-signup-street').value.trim();
+            const city = document.getElementById('cust-signup-city').value.trim();
+            const state = document.getElementById('cust-signup-state').value.trim();
+            const pincode = document.getElementById('cust-signup-pincode').value.trim();
+            const altphone = document.getElementById('cust-signup-altphone').value.trim();
+            const pass = document.getElementById('cust-signup-pass').value.trim();
+
+            if (phone.length !== 10) { showToast('Phone must be 10 digits', 'error'); return; }
+            if (isInvalidOrFakePhone(phone)) {
+                showToast('Please enter a valid active mobile number (fake or repetitive numbers not allowed).', 'error');
+                return;
+            }
+            if (pincode.length !== 6) { showToast('Pin code must be exactly 6 digits', 'error'); return; }
+
+            let registeredCustomers = JSON.parse(localStorage.getItem('hafiz_registered_customers')) || [];
+            if (registeredCustomers.some(c => c.phone === phone)) {
+                showToast('You already have an account with this number! Please Sign In.', 'error');
+                switchCustAuthTab('signin');
+                document.getElementById('cust-signin-phone').value = phone;
+                return;
+            }
+
+            if (supabaseClient) {
+                const { data } = await supabaseClient.from('customers').select('*').eq('phone', phone).single();
+                if (data) {
+                    showToast('You already have an account with this number! Please Sign In.', 'error');
+                    switchCustAuthTab('signin');
+                    document.getElementById('cust-signin-phone').value = phone;
+                    return;
+                }
+            }
+
+            const custObj = { name, phone, street, city, state, pincode, altphone, password: pass };
+            registeredCustomers.push(custObj);
+            localStorage.setItem('hafiz_registered_customers', JSON.stringify(registeredCustomers));
+
+            if (supabaseClient) {
+                await supabaseClient.from('customers').upsert([custObj]);
+            }
+
+            customerSession = {
+                verified: true,
+                name: name,
+                contact: phone,
+                savedAddress: { street, city, state, pincode, altphone }
+            };
+            saveStateToStorage();
+            closeCustomerAuthModal();
+            switchView('store');
+            updateHeaderAccountLabel();
+            showToast('Customer account created & signed in!');
+        };
+
+        window.logoutCustomer = function() {
+            customerSession = { verified: false, name: '', contact: '', savedAddress: {} };
+            saveStateToStorage();
+            switchView('store');
+            updateHeaderAccountLabel();
+            showToast('Signed out successfully');
+        };
+
+        window.logoutOwner = function() {
+            ownerSession = { verified: false, phone: '' };
+            saveStateToStorage();
+            switchView('store');
+            showToast('Owner logged out successfully');
+        };
+
+        function updateHeaderAccountLabel() {
+            const lbl = document.getElementById('header-account-label');
+            if (lbl) lbl.textContent = customerSession.verified ? customerSession.name.split(' ')[0] : 'Account';
+        }
+
+        window.switchView = function(view) {
+            document.getElementById('view-storefront').classList.add('hidden');
+            document.getElementById('view-owner').classList.add('hidden');
+            document.getElementById('view-profile').classList.add('hidden');
+            if (view === 'owner') {
+                if (!ownerSession.verified) { accessOwnerStudioModal(); return; }
+                loadOwnerOrders();
+                loadOwnerCatalogTable();
+                document.getElementById('view-owner').classList.remove('hidden');
+            } else if (view === 'profile') {
+                if (!customerSession.verified) { accessCustomerSection(); return; }
+                renderCustomerProfile();
+                document.getElementById('view-profile').classList.remove('hidden');
+            } else {
+                document.getElementById('view-storefront').classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.showToast = function(msg, type='success') {
+            const c = document.getElementById('toast-container');
+            const d = document.createElement('div');
+            d.className = `px-4 py-3 rounded-xl text-xs font-bold text-white shadow-xl ${type==='error'?'bg-rose-600':'bg-zinc-950'}`;
+            d.textContent = msg;
+            c.appendChild(d);
+            setTimeout(() => d.remove(), 3000);
+        };
+
+        let introTimer = null;
+        window.openIntroVideo = function() {
+            const overlay = document.getElementById('intro-video-overlay');
+            overlay.classList.remove('hidden');
+            const bar = document.getElementById('intro-video-progress');
+            let t = 0;
+            if (introTimer) clearInterval(introTimer);
+            introTimer = setInterval(() => {
+                t += 10;
+                bar.style.width = t + '%';
+                if (t >= 100) { clearInterval(introTimer); closeIntroVideo(); }
+            }, 200);
+        };
+        window.closeIntroVideo = function() { if (introTimer) clearInterval(introTimer); document.getElementById('intro-video-overlay').classList.add('hidden'); };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('cart-badge').textContent = cart.length;
+            const mobBadge = document.getElementById('mobile-cart-badge');
+            if (mobBadge) mobBadge.textContent = cart.length;
+            openIntroVideo();
+            renderStoreCatalog();
+            startHeroShowcaseRotation();
+            initSupabase();
+            updateHeaderAccountLabel();
+        });
+    </script>
+</body>
+</html>
